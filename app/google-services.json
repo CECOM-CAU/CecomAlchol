@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "973473498131",
+    "firebase_url": "https://cecom-alchol.firebaseio.com",
+    "project_id": "cecom-alchol",
+    "storage_bucket": "cecom-alchol.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973473498131:android:a344e4ec9124ae60",
+        "android_client_info": {
+          "package_name": "com.cecom.alchol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "973473498131-prlipqh8rhrgolrg8t49sahhqondbfo0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cecom.alchol",
+            "certificate_hash": "73594c2c37647ed611e2e6f390a497ddf759f734"
+          }
+        },
+        {
+          "client_id": "973473498131-246ake9lr9bl0ek7anji1r81f2hgcgop.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp3qRX0bZyH6P817_db2ephehwnHtgjEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973473498131-246ake9lr9bl0ek7anji1r81f2hgcgop.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
