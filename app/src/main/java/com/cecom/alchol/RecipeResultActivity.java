@@ -69,7 +69,7 @@ public class RecipeResultActivity extends AppCompatActivity {
 //    ADD DATA TO FAVORITE DATABASE
 //    dbHelper = new FavoritesActivity.DBHelper(this, dbName, null, dbVersion);
 //    db = dbHelper.getWritableDatabase();
-//    sql = String.format("INSERT INTO favoriteTable VALUES('" + "Menu1" + "');");
+//    sql = "INSERT INTO favoriteTable VALUES('" + "Menu1" + "');";
 //    db.execSQL(sql);
 
     static class DBHelper extends SQLiteOpenHelper {

@@ -9,6 +9,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,16 +30,35 @@ public class FavoritesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
-        RecyclerView favoriteRecycler = findViewById(R.id.favorite_recycler);
-        favoriteRecycler.setLayoutManager(new LinearLayoutManager(this)) ;
-
-        // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        FavoriteRecyclerAdapter adapter = new FavoriteRecyclerAdapter(list) ;
-        favoriteRecycler.setAdapter(adapter) ;
-
         dbHelper = new DBHelper(this, dbName, null, dbVersion);
         db = dbHelper.getReadableDatabase();
         sql = "SELECT * FROM favoriteTable;";
+
+        RecyclerView favoriteRecycler = findViewById(R.id.favorite_recycler);
+        favoriteRecycler.setLayoutManager(new LinearLayoutManager(this)) ;
+
+        // Button for Adding Test Values to Database
+        Button testButton = findViewById(R.id.favorite_btn_test);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbHelper = new FavoritesActivity.DBHelper(FavoritesActivity.this, dbName, null, dbVersion);
+                db = dbHelper.getWritableDatabase();
+                sql = "INSERT INTO favoriteTable VALUES('" + "Menu1" + "');";
+                db.execSQL(sql);
+                sql = "INSERT INTO favoriteTable VALUES('" + "Menu2" + "');";
+                db.execSQL(sql);
+                sql = "INSERT INTO favoriteTable VALUES('" + "Menu3" + "');";
+                db.execSQL(sql);
+                sql = "INSERT INTO favoriteTable VALUES('" + "Menu4" + "');";
+                db.execSQL(sql);
+                Toast.makeText(getApplicationContext(), "Run Activity Again.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+        FavoriteRecyclerAdapter adapter = new FavoriteRecyclerAdapter(list) ;
+        favoriteRecycler.setAdapter(adapter) ;
 
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.getCount() > 0) {
@@ -65,6 +86,5 @@ public class FavoritesActivity extends AppCompatActivity {
             db.execSQL("DROP TABLE IF EXISTS favoriteTable");
             onCreate(db);
         }
-
     }
 }
