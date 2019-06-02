@@ -28,15 +28,7 @@ public class RecipeResultActivity extends AppCompatActivity {
         //Test if String Value is transfered properly or not.
         Toast.makeText(this, getIntent().getStringExtra("Input"), Toast.LENGTH_LONG).show();
 
-        dbHelper = new DBHelper(this, dbName, null, dbVersion);
 
-        db = dbHelper.getWritableDatabase();
-        sql = String.format("INSERT INTO favoriteTable VALUES('" + "Menu1" + "');");
-        db.execSQL(sql);
-        sql = String.format("INSERT INTO favoriteTable VALUES('" + "Menu2" + "');");
-        db.execSQL(sql);
-        sql = String.format("INSERT INTO favoriteTable VALUES('" + "Menu3" + "');");
-        db.execSQL(sql);
     }
 
 
