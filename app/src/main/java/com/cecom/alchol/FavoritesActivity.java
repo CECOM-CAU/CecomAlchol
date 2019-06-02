@@ -11,18 +11,25 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
+
 import java.util.ArrayList;
 
-public class FavoritesActivity extends AppCompatActivity {
+public class FavoritesActivity extends AppCompatActivity
+{
     ArrayList<String> list = new ArrayList<>();
 
     BroadcastReceiver mReceiver;
     DBHelper dbHelper;
+    FavoriteRecyclerAdapter adapter;
+    RecyclerView favoriteRecycler;
     SQLiteDatabase db;
 
     String sql;
@@ -38,7 +45,7 @@ public class FavoritesActivity extends AppCompatActivity {
         db = dbHelper.getReadableDatabase();
         sql = "SELECT * FROM favoriteTable;";
 
-        final RecyclerView favoriteRecycler = findViewById(R.id.favorite_recycler);
+        favoriteRecycler = findViewById(R.id.favorite_recycler);
         favoriteRecycler.setLayoutManager(new LinearLayoutManager(this)) ;
 
         // Button for Adding Test Values to Database
@@ -61,8 +68,7 @@ public class FavoritesActivity extends AppCompatActivity {
             }
         });
 
-        final FavoriteRecyclerAdapter adapter = new FavoriteRecyclerAdapter(list) ;
-        favoriteRecycler.setAdapter(adapter) ;
+        adapter = new FavoriteRecyclerAdapter(list) ;
 
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.getCount() > 0) {
@@ -73,6 +79,7 @@ public class FavoritesActivity extends AppCompatActivity {
             list.add("조회결과가 없습니다.");
         }
         cursor.close();
+        favoriteRecycler.setAdapter(adapter);
 
         final IntentFilter theFilter = new IntentFilter();
         theFilter.addAction("UPDATE RECYCLER");
