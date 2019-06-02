@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 public class FavoritesActivity extends AppCompatActivity {
     ArrayList<String> list = new ArrayList<>();
 
+    BroadcastReceiver mReceiver;
     DBHelper dbHelper;
     SQLiteDatabase db;
 
@@ -34,7 +38,7 @@ public class FavoritesActivity extends AppCompatActivity {
         db = dbHelper.getReadableDatabase();
         sql = "SELECT * FROM favoriteTable;";
 
-        RecyclerView favoriteRecycler = findViewById(R.id.favorite_recycler);
+        final RecyclerView favoriteRecycler = findViewById(R.id.favorite_recycler);
         favoriteRecycler.setLayoutManager(new LinearLayoutManager(this)) ;
 
         // Button for Adding Test Values to Database
@@ -57,7 +61,7 @@ public class FavoritesActivity extends AppCompatActivity {
             }
         });
 
-        FavoriteRecyclerAdapter adapter = new FavoriteRecyclerAdapter(list) ;
+        final FavoriteRecyclerAdapter adapter = new FavoriteRecyclerAdapter(list) ;
         favoriteRecycler.setAdapter(adapter) ;
 
         Cursor cursor = db.rawQuery(sql, null);
@@ -69,6 +73,35 @@ public class FavoritesActivity extends AppCompatActivity {
             list.add("조회결과가 없습니다.");
         }
         cursor.close();
+
+        final IntentFilter theFilter = new IntentFilter();
+        theFilter.addAction("UPDATE RECYCLER");
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if(intent.getAction().equals("UPDATE RECYCLER")){
+                    Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                    list.clear();
+                    Cursor cursor = db.rawQuery(sql, null);
+                    if (cursor.getCount() > 0) {
+                        while (cursor.moveToNext()) {
+                            list.add(cursor.getString(0));
+                        }
+                    } else {
+                        list.add("조회결과가 없습니다.");
+                    }
+                    cursor.close();
+                    favoriteRecycler.setAdapter(adapter);
+                }
+            }
+        };
+        registerReceiver(mReceiver, theFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
     }
 
     static class DBHelper extends SQLiteOpenHelper {

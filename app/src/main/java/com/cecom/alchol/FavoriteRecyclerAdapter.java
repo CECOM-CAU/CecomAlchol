@@ -2,6 +2,7 @@ package com.cecom.alchol;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.view.LayoutInflater;
@@ -72,7 +73,7 @@ public class FavoriteRecyclerAdapter extends RecyclerView.Adapter<FavoriteRecycl
                                                     dbHelper = new FavoriteRecyclerAdapter.DBHelper(context, dbName, null, dbVersion);
                                                     db = dbHelper.getWritableDatabase();
                                                     db.delete("favoriteTable", "name = ?", new String[]{String.valueOf(mData.get(position))});
-                                                    notifyDataSetChanged();
+                                                    context.sendBroadcast(new Intent("UPDATE RECYCLER"));
                                                 }
                                             });
                                     deleteDialog.setNegativeButton("No",
