@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 public class ResultRecyclerAdapter extends RecyclerView.Adapter<ResultRecyclerAdapter.ItemViewHolder> {
@@ -42,11 +43,6 @@ public class ResultRecyclerAdapter extends RecyclerView.Adapter<ResultRecyclerAd
             super(itemView);
             tvMenu = itemView.findViewById(R.id.menuName);
             tvSource = itemView.findViewById(R.id.menuSource);
-        }
-
-        void onBind(ResultData data) {
-            tvMenu.setText(data.getMenu());
-            tvSource.setText(data.getSource());
         }
     }
 }

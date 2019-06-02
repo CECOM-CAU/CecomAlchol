@@ -20,8 +20,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-import javax.xml.transform.Result;
-
 public class RecipeResultActivity extends AppCompatActivity {
 
     DBHelper dbHelper;
@@ -67,7 +65,6 @@ public class RecipeResultActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
 //    ADD DATA TO FAVORITE DATABASE
 //    dbHelper = new FavoritesActivity.DBHelper(this, dbName, null, dbVersion);
