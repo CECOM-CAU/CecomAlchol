@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,28 +30,22 @@ public class UserRegisterActivity extends AppCompatActivity
     boolean[] checkedItems = new boolean[drinkElements.length];
     boolean[] lastCheckedItems;
     Button selectElementsButton;
+    Button submitButton;
     TextView selectedElements;
+    EditText nameET;
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
         selectElementsButton = findViewById(R.id.selectElementsBT);
-        selectedElements = findViewById(R.id.drinkNameET);
+        selectedElements = findViewById(R.id.selectedElementsTV);
+        submitButton = findViewById(R.id.submitBT);
+        nameET = findViewById(R.id.drinkNameET);
         selectElementsButton.setOnClickListener(listener);
+        submitButton.setOnClickListener(listener);
         resetArray(checkedItems);
         context = this;
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-
-
-        Map<String, Object> user = new HashMap<>();
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
-        db.collection("Drink").document("drink4").set(user);
-
 
     }
 
@@ -67,13 +62,19 @@ public class UserRegisterActivity extends AppCompatActivity
                         public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                             // user checked or unchecked a box
                         }
-
                     });
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            String tempString = "";
                             lastCheckedItems = Arrays.copyOf(checkedItems,checkedItems.length);
                             resetArray(checkedItems);
+                            for(int i =0; i< lastCheckedItems.length; i++){
+                                if(lastCheckedItems[i] == true){
+                                    tempString += (String.valueOf(drinkElements[i])+"\n");
+                                }
+                            }
+                            selectedElements.setText(tempString);
                             Log.d("test", String.valueOf(lastCheckedItems[0])+String.valueOf(lastCheckedItems[1]));
                         }
                     });
@@ -82,6 +83,16 @@ public class UserRegisterActivity extends AppCompatActivity
 // create and show the alert dialog
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                    break;
+                case R.id.submitBT:
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    String[] tempArr = selectedElements.getText().toString().split("\n");
+                    Map<String, Object> user = new HashMap<>();
+                    for(int i = 0; i < tempArr.length; i++){
+                        user.put("elements"+String.valueOf(i), tempArr[i]);
+                    }
+                    db.collection("Drink").document(nameET.getText().toString()).set(user);
+                    break;
             }
 
         }
