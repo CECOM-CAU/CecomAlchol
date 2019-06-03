@@ -5,10 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
+    <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/input_edittext"/>
+        android:id="@+id/input_check_source1"
+        android:text="Source 1"/>
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/input_check_source2"
+        android:text="Source 2"/>
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/input_check_source3"
+        android:text="Source 3"/>
 
     <Button
         android:layout_width="match_parent"
