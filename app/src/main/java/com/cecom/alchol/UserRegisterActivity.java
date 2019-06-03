@@ -1,21 +1,14 @@
 package com.cecom.alchol;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -27,6 +20,7 @@ public class UserRegisterActivity extends AppCompatActivity
     boolean[] checkedItems = new boolean[drinkElements.length];
     Button selectElementsButton;
     Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +33,6 @@ public class UserRegisterActivity extends AppCompatActivity
 
         context = this;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-
 
         Map<String, Object> user = new HashMap<>();
         user.put("first", "Ada");
