@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,18 +27,18 @@ public class UserRegisterActivity extends AppCompatActivity
 {
     String[] drinkElements = {"horse", "cow", "camel", "sheep", "goat"};
     boolean[] checkedItems = new boolean[drinkElements.length];
+    boolean[] lastCheckedItems;
     Button selectElementsButton;
+    TextView selectedElements;
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
         selectElementsButton = findViewById(R.id.selectElementsBT);
+        selectedElements = findViewById(R.id.drinkNameET);
         selectElementsButton.setOnClickListener(listener);
-        for (int i = 0; i < checkedItems.length; i++){
-            checkedItems[i] = false;
-        }
-
+        resetArray(checkedItems);
         context = this;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -65,11 +67,14 @@ public class UserRegisterActivity extends AppCompatActivity
                         public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                             // user checked or unchecked a box
                         }
+
                     });
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // user clicked OK
+                            lastCheckedItems = Arrays.copyOf(checkedItems,checkedItems.length);
+                            resetArray(checkedItems);
+                            Log.d("test", String.valueOf(lastCheckedItems[0])+String.valueOf(lastCheckedItems[1]));
                         }
                     });
                     builder.setNegativeButton("Cancel", null);
@@ -82,5 +87,14 @@ public class UserRegisterActivity extends AppCompatActivity
         }
     };
 
+    void resetArray(boolean[] arr){
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = false;
+        }
+    }
+
 }
+
+
+
 
