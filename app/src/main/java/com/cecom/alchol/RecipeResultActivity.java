@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,18 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-
-public class RecipeResultActivity extends AppCompatActivity {
-
-    DBHelper dbHelper;
-    SQLiteDatabase db;
-
-    private ArrayList<ResultData> mData = new ArrayList<>();
-    String sql;
-    final static String dbName = "favoriteTable.db";
-    final static int dbVersion = 2;
-
+public class RecipeResultActivity extends AppCompatActivity
+{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +37,7 @@ public class RecipeResultActivity extends AppCompatActivity {
 
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         db.collection("Drink")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -55,7 +47,7 @@ public class RecipeResultActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 ResultData data = new ResultData();
                                 data.setMenu(document.getId());
-                                data.setSource(document.getData().toString());
+                                data.setSource(document.getData().get("Source").toString());
                                 adapter.addItem(data);
                             }
                             adapter.notifyDataSetChanged();
@@ -64,29 +56,5 @@ public class RecipeResultActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
-
-//    ADD DATA TO FAVORITE DATABASE
-//    dbHelper = new FavoritesActivity.DBHelper(this, dbName, null, dbVersion);
-//    db = dbHelper.getWritableDatabase();
-//    sql = "INSERT INTO favoriteTable VALUES('" + "Menu1" + "');";
-//    db.execSQL(sql);
-
-    static class DBHelper extends SQLiteOpenHelper {
-        public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-            super(context, name, factory, version);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE favoriteTable (name TEXT);");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS favoriteTable");
-            onCreate(db);
-        }
-
     }
 }

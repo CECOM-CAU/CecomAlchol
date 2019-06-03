@@ -48,26 +48,6 @@ public class FavoritesActivity extends AppCompatActivity
         favoriteRecycler = findViewById(R.id.favorite_recycler);
         favoriteRecycler.setLayoutManager(new LinearLayoutManager(this)) ;
 
-        // Button for Adding Test Values to Database
-        Button testButton = findViewById(R.id.favorite_btn_test);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dbHelper = new FavoritesActivity.DBHelper(FavoritesActivity.this, dbName, null, dbVersion);
-                db = dbHelper.getWritableDatabase();
-                sql = "INSERT INTO favoriteTable VALUES('" + "Menu1" + "');";
-                db.execSQL(sql);
-                sql = "INSERT INTO favoriteTable VALUES('" + "Menu2" + "');";
-                db.execSQL(sql);
-                sql = "INSERT INTO favoriteTable VALUES('" + "Menu3" + "');";
-                db.execSQL(sql);
-                sql = "INSERT INTO favoriteTable VALUES('" + "Menu4" + "');";
-                db.execSQL(sql);
-                Toast.makeText(getApplicationContext(), "Run Activity Again.", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
-
         adapter = new FavoriteRecyclerAdapter(list) ;
 
         Cursor cursor = db.rawQuery(sql, null);

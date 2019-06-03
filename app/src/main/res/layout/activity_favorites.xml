@@ -11,10 +11,4 @@
         android:id="@+id/favorite_recycler">
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Test Database Values"
-        android:id="@+id/favorite_btn_test"/>
-
 </LinearLayout>

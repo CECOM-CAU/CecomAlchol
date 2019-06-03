@@ -57,24 +57,23 @@ public class FavoriteRecyclerAdapter extends RecyclerView.Adapter<FavoriteRecycl
         if(!text.equals("조회결과가 없습니다.")){
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    final Context context = v.getContext();
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                public void onClick(final View v) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     builder.setMessage("Select what you want.");
                     builder.setPositiveButton("Delete from Favorites",
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    AlertDialog.Builder deleteDialog = new AlertDialog.Builder(context);
+                                    AlertDialog.Builder deleteDialog = new AlertDialog.Builder(v.getContext());
                                     deleteDialog.setMessage("Delete this Favorite?");
                                     deleteDialog.setPositiveButton("Yes",
                                             new DialogInterface.OnClickListener(){
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which){
-                                                    dbHelper = new FavoriteRecyclerAdapter.DBHelper(context, dbName, null, dbVersion);
+                                                    dbHelper = new FavoriteRecyclerAdapter.DBHelper(v.getContext(), dbName, null, dbVersion);
                                                     db = dbHelper.getWritableDatabase();
                                                     db.delete("favoriteTable", "name = ?", new String[]{String.valueOf(mData.get(position))});
-                                                    context.sendBroadcast(new Intent("UPDATE RECYCLER"));
+                                                    v.getContext().sendBroadcast(new Intent("UPDATE RECYCLER"));
                                                 }
                                             });
                                     deleteDialog.setNegativeButton("No",
@@ -91,7 +90,7 @@ public class FavoriteRecyclerAdapter extends RecyclerView.Adapter<FavoriteRecycl
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(context, "View Recipe is not ready for now.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(v.getContext(), "View Recipe is not ready for now.", Toast.LENGTH_SHORT).show();
                                 }
                             });
                     builder.show();
