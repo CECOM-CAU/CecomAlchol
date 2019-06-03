@@ -41,25 +41,40 @@ public class ResultRecyclerAdapter extends RecyclerView.Adapter<ResultRecyclerAd
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                String selMenu = mData.get(position).getMenu();
-
+                final String selMenu = mData.get(position).getMenu();
                 final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setMessage("Add " + selMenu + " to Favorites?");
-                builder.setPositiveButton("Yes",
+                builder.setMessage("Select what you want.");
+                builder.setPositiveButton("Add to Favirites",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dbHelper = new DBHelper(v.getContext(), dbName, null, dbVersion);
-                                db = dbHelper.getWritableDatabase();
-                                sql = "INSERT INTO favoriteTable VALUES('" + mData.get(position).getMenu() + "');";
-                                db.execSQL(sql);
+                                AlertDialog.Builder favoriteBuilder = new AlertDialog.Builder(v.getContext());
+                                favoriteBuilder.setMessage("Add " + selMenu + " to Favorites?");
+                                favoriteBuilder.setPositiveButton("Yes",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dbHelper = new DBHelper(v.getContext(), dbName, null, dbVersion);
+                                                db = dbHelper.getWritableDatabase();
+                                                sql = "INSERT INTO favoriteTable VALUES('" + mData.get(position).getMenu() + "');";
+                                                db.execSQL(sql);
+                                            }
+                                        });
+                                favoriteBuilder.setNegativeButton("No",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                favoriteBuilder.show();
                             }
                         });
-                builder.setNegativeButton("No",
+                builder.setNegativeButton("View Recipe",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
+                                Toast.makeText(v.getContext(), "View Recipe is not ready for now.", Toast.LENGTH_SHORT).show();
                             }
                         });
                 builder.show();
