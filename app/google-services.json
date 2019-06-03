@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "973473498131-prlipqh8rhrgolrg8t49sahhqondbfo0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cecom.alchol",
+            "certificate_hash": "73594c2c37647ed611e2e6f390a497ddf759f734"
+          }
+        },
+        {
           "client_id": "973473498131-246ake9lr9bl0ek7anji1r81f2hgcgop.apps.googleusercontent.com",
           "client_type": 3
         }
