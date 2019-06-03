@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class CommunityActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,3 +23,4 @@ public class CommunityActivity extends AppCompatActivity {
         });
     }
 }
+
