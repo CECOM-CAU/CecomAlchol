@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class UserRegisterActivity extends AppCompatActivity
 {
-    String[] drinkElements = {"horse", "cow", "camel", "sheep", "goat"};
+    String[] drinkElements = DrinkList.data;
     boolean[] checkedItems = new boolean[drinkElements.length];
     boolean[] lastCheckedItems;
     Button selectElementsButton;
