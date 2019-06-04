@@ -3,8 +3,9 @@ package com.cecom.alchol;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.cecom.alchol.activity.CommunityActivity;
+import com.cecom.alchol.activity.FavoritesActivity;
+import com.cecom.alchol.activity.UserInputActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;

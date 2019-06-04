@@ -1,4 +1,4 @@
-package com.cecom.alchol;
+package com.cecom.alchol.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +18,8 @@ import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.cecom.alchol.FavoriteRecyclerAdapter;
+import com.cecom.alchol.R;
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 
 import java.util.ArrayList;

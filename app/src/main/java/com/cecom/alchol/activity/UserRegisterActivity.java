@@ -1,4 +1,4 @@
-package com.cecom.alchol;
+package com.cecom.alchol.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.cecom.alchol.R;
+import com.cecom.alchol.model.DrinkList;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;

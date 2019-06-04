@@ -1,18 +1,18 @@
-package com.cecom.alchol;
+package com.cecom.alchol.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.icu.util.LocaleData;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.cecom.alchol.R;
+import com.cecom.alchol.ResultRecyclerAdapter;
+import com.cecom.alchol.model.DrinkList;
+import com.cecom.alchol.model.ResultData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
