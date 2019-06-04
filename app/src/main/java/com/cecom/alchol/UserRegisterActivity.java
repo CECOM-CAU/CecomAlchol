@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
@@ -81,9 +80,11 @@ public class UserRegisterActivity extends AppCompatActivity
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     String[] tempArr = selectedElements.getText().toString().split("\n");
                     Map<String, Object> user = new HashMap<>();
+                    String temp = "";
                     for(int i = 0; i < tempArr.length; i++){
-                        user.put("elements"+String.valueOf(i), tempArr[i]);
+                        temp += (tempArr[i]+",");
                     }
+                    user.put("Source", temp);
                     db.collection("Drink").document(nameET.getText().toString()).set(user);
                     break;
             }

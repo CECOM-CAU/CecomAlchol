@@ -90,7 +90,20 @@ public class ResultRecyclerAdapter extends RecyclerView.Adapter<ResultRecyclerAd
     void addItem(ResultData data) {
         mData.add(data);
     }
+    void deleteItem(ResultData data) {
+        for(int i = 0; i < mData.size(); i++){
+            if(data.getMenu().equals(mData.get(i).getMenu())){
+                mData.remove(i);
+            }
+        }
+    }
 
+    ArrayList<ResultData> getList(){
+        return mData;
+    }
+    void setList(ArrayList<ResultData> temp){
+        this.mData = temp;
+    }
     class ItemViewHolder extends RecyclerView.ViewHolder {
         View mView;
         TextView tvMenu;
