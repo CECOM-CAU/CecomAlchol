@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +26,7 @@ public class UserRegisterActivity extends AppCompatActivity
     TextView selectedElements;
     EditText nameET;
     Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +39,6 @@ public class UserRegisterActivity extends AppCompatActivity
         submitButton.setOnClickListener(listener);
         resetArray(checkedItems);
         context = this;
-
     }
 
     Button.OnClickListener listener = new Button.OnClickListener(){
