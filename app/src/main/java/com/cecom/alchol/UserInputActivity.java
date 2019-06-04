@@ -2,71 +2,38 @@ package com.cecom.alchol;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class UserInputActivity extends AppCompatActivity {
 
     String sourceInput = "";
-
+    CheckBox[] checkBoxes;
+    Button btnResult;
+    LinearLayout temp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_user_input);
-
-        Button btnResult = findViewById(R.id.input_btn_search);
-        CheckBox chkSource1 = findViewById(R.id.input_check_source1);
-        CheckBox chkSource2 = findViewById(R.id.input_check_source2);
-        CheckBox chkSource3 = findViewById(R.id.input_check_source3);
-
-        chkSource1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if(sourceInput.equals("")){
-                        sourceInput += "Source1";
-                    }else{
-                        sourceInput += ",Source1";
-                    }
-                }else{
-                    sourceInput = sourceInput.replace("Source1,", "").replace("Source1", "");
-                }
-            }
-        });
-        chkSource2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if(sourceInput.equals("")){
-                        sourceInput += "Source2";
-                    }else{
-                        sourceInput += ",Source2";
-                    }
-                }else{
-                    sourceInput = sourceInput.replace("Source2,", "").replace("Source2", "");
-                }
-            }
-        });
-        chkSource3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if(sourceInput.equals("")){
-                        sourceInput += "Source3";
-                    }else{
-                        sourceInput += ",Source3";
-                    }
-                }else{
-                    sourceInput = sourceInput.replace("Source3,", "").replace("Source3", "");
-                }
-            }
-        });
+        btnResult = findViewById(R.id.input_btn_search);
+        temp = findViewById(R.id.checkBoxLayout);
+        checkBoxes = new CheckBox[DrinkList.data.length];
+        for(int i = 0; i < checkBoxes.length; i++){
+            checkBoxes[i] = new CheckBox(this);
+            checkBoxes[i].setText(DrinkList.data[i]);
+            checkBoxes[i].setOnCheckedChangeListener(listener);
+            temp.addView(checkBoxes[i]);
+        }
 
         btnResult.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,4 +49,22 @@ public class UserInputActivity extends AppCompatActivity {
             }
         });
     }
+
+    CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(isChecked) {
+                if(sourceInput.equals("")){
+                    sourceInput += (buttonView.getText().toString().replace(" ",""));
+                }
+                else{
+                    sourceInput += ("," + buttonView.getText().toString().replace(" ",""));
+                }
+            }
+            else{
+                String temp = buttonView.getText().toString().replace(" ","");
+                sourceInput = sourceInput.replace(","+temp, "").replace(temp, "");
+            }
+        }
+    };
 }

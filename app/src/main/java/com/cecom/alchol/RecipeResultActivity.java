@@ -21,6 +21,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RecipeResultActivity extends AppCompatActivity
 {
@@ -32,31 +33,36 @@ public class RecipeResultActivity extends AppCompatActivity
         Toast.makeText(this, getIntent().getStringExtra("Input"), Toast.LENGTH_SHORT).show();
 
         final String[] selectedData = getIntent().getStringExtra("Input").split(",");
-        boolean checked[] = {true,true,true};
+        Log.d("AVC", Arrays.toString(selectedData));
+        boolean[] checked = new boolean[DrinkList.data.length];
+
+        for(int i = 0; i < checked.length; i++){
+            checked[i] = true;
+        }
+
         ArrayList<String> tempList = new ArrayList<>();
+
         final String[] unSelectedData;
 
-        for(String temp : selectedData){
-            if(temp.equals("Source1")){
-                checked[0] = false;
-            }
-            else if(temp.equals("Source2")){
-                checked[1] = false;
-            }
-            else if(temp.equals("Source3")){
-                checked[2] = false;
+        for( int i = 0; i < checked.length; i++){
+            for(int j = 0; j <selectedData.length; j++){
+                if(DrinkList.data[i].equals(selectedData[j])){
+                    checked[i] = false;
+                    break;
+                }
+
             }
         }
 
         for(int i = 0; i < checked.length; i++){
             if(checked[i] == true){
-                tempList.add("Source"+String.valueOf(i+1));
+                tempList.add(DrinkList.data[i]);
             }
         }
 
         unSelectedData = tempList.toArray(new String[tempList.size()]);
         if(unSelectedData.length > 0){
-            Log.d("AVC", unSelectedData[0]);
+            Log.d("AVC", Arrays.toString(unSelectedData));
         }
 
         RecyclerView recyclerView = findViewById(R.id.result_recycler);
@@ -87,6 +93,7 @@ public class RecipeResultActivity extends AppCompatActivity
                                 for(String temp:tempArr){
                                     for(int i = 0; i < selectedData.length; i++){
                                         if(selectedData[i].equals(temp)){
+                                            Log.d("Result", data.getMenu());
                                             adapter.addItem(data);
                                             count = true;
                                         }
@@ -113,10 +120,11 @@ public class RecipeResultActivity extends AppCompatActivity
                                     }
                                 }
                             }
+
                             adapter.setList(tempList);
                             adapter.notifyDataSetChanged();
-
-                        } else {
+                        }
+                        else {
                             Toast.makeText(getApplicationContext(), "Error getting documents : " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
