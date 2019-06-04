@@ -1,6 +1,5 @@
 package com.cecom.alchol;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -12,12 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
@@ -88,9 +81,11 @@ public class UserRegisterActivity extends AppCompatActivity
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     String[] tempArr = selectedElements.getText().toString().split("\n");
                     Map<String, Object> user = new HashMap<>();
+                    String temp = "";
                     for(int i = 0; i < tempArr.length; i++){
-                        user.put("elements"+String.valueOf(i), tempArr[i]);
+                        temp += (tempArr[i]+",");
                     }
+                    user.put("Source", temp);
                     db.collection("Drink").document(nameET.getText().toString()).set(user);
                     break;
             }
