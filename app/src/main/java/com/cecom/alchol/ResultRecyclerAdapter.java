@@ -88,7 +88,7 @@ public class ResultRecyclerAdapter extends RecyclerView.Adapter<ResultRecyclerAd
         return mData.size() ;
     }
 
-    void addItem(ResultData data) {
+    public void addItem(ResultData data) {
         mData.add(data);
     }
     void deleteItem(ResultData data) {
@@ -99,10 +99,10 @@ public class ResultRecyclerAdapter extends RecyclerView.Adapter<ResultRecyclerAd
         }
     }
 
-    ArrayList<ResultData> getList(){
+    public ArrayList<ResultData> getList(){
         return mData;
     }
-    void setList(ArrayList<ResultData> temp){
+    public void setList(ArrayList<ResultData> temp){
         this.mData = temp;
     }
     class ItemViewHolder extends RecyclerView.ViewHolder {

@@ -1,11 +1,9 @@
-package com.cecom.alchol;
+package com.cecom.alchol.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.cecom.alchol.activity.CommunityActivity;
-import com.cecom.alchol.activity.FavoritesActivity;
-import com.cecom.alchol.activity.UserInputActivity;
+import com.cecom.alchol.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;

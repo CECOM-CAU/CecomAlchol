@@ -15,7 +15,7 @@
         <activity android:name=".activity.UserInputActivity" />
         <activity android:name=".activity.UserRegisterActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

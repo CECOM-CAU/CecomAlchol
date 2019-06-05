@@ -36,7 +36,7 @@ public class FavoriteRecyclerAdapter extends RecyclerView.Adapter<FavoriteRecycl
         }
     }
 
-    FavoriteRecyclerAdapter(ArrayList<String> list) {
+    public FavoriteRecyclerAdapter(ArrayList<String> list) {
         mData = list;
     }
 
