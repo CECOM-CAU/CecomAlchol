@@ -1,4 +1,4 @@
-package com.cecom.alchol;
+package com.cecom.alchol.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,15 +11,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.cecom.alchol.CardRecyclerViewAdapter;
+import com.cecom.alchol.R;
+import com.cecom.alchol.model.CardViewItemDTO;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Map;
+import java.util.Arrays;
 
 public class CommunityActivity extends AppCompatActivity {
 
@@ -40,13 +41,15 @@ public class CommunityActivity extends AppCompatActivity {
                             int i = 0;
                             CardViewItemDTO[] test = new CardViewItemDTO[task.getResult().size()];
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String data = document.getData().toString().replace(" ","");
-                                String[] tempString = data.substring(1,data.length()-1).split(",");
-                                String tempData = "";
-                                for(int j = 0; j < tempString.length; j++){
-                                    tempData += (tempString[j]+"\n");
+                                document.getData();
+                                String data = ((String)document.getData().get("Source")).replace(" ", "");
+                                String ratio = ((String)document.getData().get("Ratio")).replace(" ", "");
+                                String[] displayData = data.split(",");
+                                String[] tempRatio = ratio.split(",");
+                                for(int j = 0; j < displayData.length; j++){
+                                    displayData[j] += tempRatio[j];
                                 }
-                                test[i++] = new CardViewItemDTO(document.getId().toString(), tempData);
+                                test[i++] = new CardViewItemDTO(document.getId().toString(), Arrays.toString(displayData));
                                 Log.d("ABC", document.getId());
                             }
                             CardRecyclerViewAdapter temp = (CardRecyclerViewAdapter) recyclerView.getAdapter();
@@ -55,7 +58,6 @@ public class CommunityActivity extends AppCompatActivity {
                         }
                     }
                 });
-
 
         Button btnAdd = findViewById(R.id.community_btn_add);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -69,13 +71,8 @@ public class CommunityActivity extends AppCompatActivity {
 
     CardViewItemDTO[] initialCardViewItem(){
         CardViewItemDTO[] returnCardViewItemDTO = new CardViewItemDTO[1];
-
         returnCardViewItemDTO[0] = new CardViewItemDTO("temp", "temp");
-
-
-
         return returnCardViewItemDTO;
-
     }
 
 

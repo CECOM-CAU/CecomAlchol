@@ -1,4 +1,4 @@
-package com.cecom.alchol;
+package com.cecom.alchol.model;
 
 
 public class CardViewItemDTO {
